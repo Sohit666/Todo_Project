@@ -1,25 +1,41 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import TaskList from './components/todo';
+import Navbar from './components/navbar';
+import About from './components/about';
+import NewTask from './components/newtask';
 import './App.css';
+import tasks from './components/task'; 
 
-function App() {
+const App = () => {
+  const [tasksList, setTasksList] = useState(tasks);
+
+  const handleDelete = (taskId) => {
+    const updatedTasks = tasksList.filter(task => task.id !== taskId);
+    setTasksList(updatedTasks);
+  };
+
+  const handleAddTask = (newTask) => {
+    setTasksList([...tasksList, newTask]);
+  };
+
+  const handleSearch = (searchTerm) => {
+    const filteredTasks = tasksList.filter(task => task.task.toLowerCase().includes(searchTerm.toLowerCase()));
+    setTasksList(filteredTasks);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar title="Task Manager" onSearch={handleSearch} />
+      <div>
+        <Routes>
+          <Route path="/todo" element={<TaskList tasks={tasksList} onDelete={handleDelete} />} />
+          <Route path="/newtask" element={<NewTask onAddTask={handleAddTask} />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </div>
+    </>
   );
-}
+};
 
 export default App;
