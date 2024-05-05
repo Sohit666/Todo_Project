@@ -29,7 +29,7 @@ const App = () => {
       <Navbar title="Task Manager" onSearch={handleSearch} />
       <div>
         <Routes>
-          <Route path="/todo" element={<TaskList tasks={tasksList} onDelete={handleDelete} />} />
+          <Route path="/" element={<TaskList tasks={tasksList} onDelete={handleDelete} />} />
           <Route path="/newtask" element={<NewTask onAddTask={handleAddTask} />} />
           <Route path="/about" element={<About />} />
         </Routes>
