@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes,Navigate } from 'react-router-dom';
 import TaskList from './components/todo';
 import Navbar from './components/navbar';
 import About from './components/about';
@@ -29,8 +29,9 @@ const App = () => {
       <Navbar title="Task Manager" onSearch={handleSearch} />
       <div>
         <Routes>
-          <Route path="/" element={<TaskList tasks={tasksList} onDelete={handleDelete} />} />
+          
           <Route path="/newtask" element={<NewTask onAddTask={handleAddTask} />} />
+          <Route path="/todo" element={<TaskList tasks={tasksList} onDelete={handleDelete} />} />
           <Route path="/about" element={<About />} />
         </Routes>
       </div>
